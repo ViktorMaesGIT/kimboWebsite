@@ -89,7 +89,7 @@ a:hover { color: var(--terracotta-donker); }
 
 /* ---------- Typografie ---------- */
 
-h1, h2, h3 { margin: 0; line-height: 1.1; overflow-wrap: break-word; hyphens: auto; }
+h1, h2, h3 { margin: 0; line-height: 1.1; overflow-wrap: break-word; }
 h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.04; }
 .titel-hand { font-family: var(--font-hand); font-weight: 700; font-size: clamp(44px, 6vw, 60px); }
 .kicker { margin: 0; font-family: var(--font-hand); font-size: 32px; color: var(--violet); line-height: 1.2; }
@@ -157,10 +157,10 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 .sectie--na-luiaard { padding-top: 250px; }
 .sectie-kop { display: flex; flex-direction: column; gap: 10px; }
 .sectie-kop--rij { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
-.sectie-kop--rij > a { display: inline-flex; align-items: center; min-height: var(--raak); }
+.sectie-kop--rij > a { display: inline-flex; align-items: flex-end; gap: 0.35em; min-height: var(--raak); }
 
 /* Kaarten (boogvormig) */
-.kaarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.kaarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 24px; }
 .kaart {
   display: flex; flex-direction: column; gap: 12px; text-align: center;
   color: var(--inkt); text-decoration: none; background: var(--kaart);
@@ -234,12 +234,16 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 }
 .contact .knop-licht:hover { background: #fff; }
 .voet { margin: 16px 0 0; font-size: 14px; color: #DCE6EE; }
-.voet a { color: var(--goud-licht); padding: calc((var(--raak) - 1.6em) / 2) 0; }
+.voet a { display: inline-block; color: var(--goud-licht); padding: calc((var(--raak) - 1.6em) / 2) 0; }
 
 /* ---------- Kleine schermen ---------- */
 
+@media (max-width: 980px) {
+  :root { --vensterbank-uitsteek: 12px; }
+}
+
 @media (max-width: 640px) {
-  :root { --links: 48px; --rechts: 16px; --vensterbank-uitsteek: 12px; }
+  :root { --links: 48px; --rechts: 16px; }
   .kop { padding-top: 80px; }
   .hero { gap: 40px; padding-bottom: 180px; }
   .raam { height: 340px; }
