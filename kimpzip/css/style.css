@@ -1,0 +1,259 @@
+/* Kimbo Creates – stijl "Raamkader met bloesem"
+   Alle kleuren staan als variabelen in :root. Pas ze hier aan, niet in de pagina's. */
+
+:root {
+  --papier: #F4EDE1;
+  --papier-licht: #FFF8EE;
+  --kaart: #FFFDF8;
+  --inkt: #1F1B24;
+  --inkt-zacht: #4A4450;
+  --raam: #3D6682;
+  --raam-donker: #2F536B;
+  --raam-licht: #9FB3C2;
+  --terracotta: #A8452A;
+  --terracotta-donker: #7E3220;
+  --violet: #7A4FB0;
+  --goud: #F2C95C;
+  --goud-licht: #FBE3A0;
+  --boterbloem: #F2C230;
+  --boterbloem-rand: #D9A21B;
+  --placeholder: #E4D8C4;
+
+  --font-hand: 'Caveat', cursive;
+  --font-tekst: 'Karla', system-ui, sans-serif;
+
+  --links: 52px;   /* ruimte voor de stam links */
+  --rechts: 24px;
+  --raak: 44px;                   /* kleinste aanraakdoel */
+  --vensterbank-uitsteek: 20px;  /* hoe ver de vensterbank naast het raam uitsteekt */
+  --kop-top-breed: 150px;        /* kop begint onder de bloesemtak op brede schermen */
+  --boog-groot: 220px 220px 4px 4px;
+  --boog: 160px 160px 4px 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--inkt);
+  font-family: var(--font-tekst);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--terracotta); }
+a:hover { color: var(--terracotta-donker); }
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+.contact :focus-visible { outline-color: var(--goud); }
+
+.visueel-verborgen {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+.naar-inhoud {
+  position: absolute; left: 60px; top: -60px; z-index: 10;
+  background: var(--inkt); color: #fff; padding: 12px 18px; border-radius: 6px;
+}
+.naar-inhoud:focus { top: 12px; color: #fff; }
+
+/* ---------- Pagina, stam en decoratie ---------- */
+
+.pagina { position: relative; overflow: hidden; min-height: 100vh; }
+
+.stam {
+  position: absolute; left: 0; top: 0;
+  width: 40px; height: 100%;
+  z-index: 2; pointer-events: none;
+}
+
+.zone { position: relative; }
+.zone--licht { background: var(--papier-licht); }
+
+.deco { position: absolute; pointer-events: none; height: auto; }
+.deco--tak { left: 0; top: 0; max-width: 100%; }
+.deco--weide { left: 0; bottom: 0; width: 100%; height: 170px; }
+.deco--luiaard { right: 0; top: 16px; width: 420px; max-width: 55%; }
+
+.weide-strook { position: relative; height: 120px; }
+.weide-strook .deco { left: 0; bottom: 0; width: 100%; height: 120px; }
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--links);
+  padding-right: var(--rechts);
+}
+
+/* ---------- Typografie ---------- */
+
+h1, h2, h3 { margin: 0; line-height: 1.1; overflow-wrap: break-word; hyphens: auto; }
+h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.04; }
+.titel-hand { font-family: var(--font-hand); font-weight: 700; font-size: clamp(44px, 6vw, 60px); }
+.kicker { margin: 0; font-family: var(--font-hand); font-size: 32px; color: var(--violet); line-height: 1.2; }
+.intro { margin: 0; font-size: 20px; line-height: 1.65; max-width: 560px; color: var(--inkt-zacht); }
+.lead { margin: 0; font-size: 19px; line-height: 1.65; max-width: 640px; color: var(--inkt-zacht); }
+.accent { color: var(--raam); }
+
+/* ---------- Knoppen ---------- */
+
+.knoppen { display: flex; flex-wrap: wrap; gap: 16px; }
+.knop, .knop-lijn {
+  display: inline-block; padding: 16px 28px; border-radius: 6px;
+  font-weight: 700; font-size: 17px; text-decoration: none; line-height: 1.2;
+}
+.knop { background: var(--terracotta); color: var(--papier-licht); }
+.knop:hover { background: var(--terracotta-donker); color: var(--papier-licht); }
+.knop-lijn { border: 1.5px solid var(--inkt); color: var(--inkt); font-weight: 500; padding: 14.5px 26px; }
+.knop-lijn:hover { background: var(--inkt); color: var(--papier); }
+
+/* ---------- Menu ---------- */
+
+.kop { position: relative; padding-top: 100px; }
+.kop .wrap { display: flex; flex-direction: column; gap: 16px; padding-top: 20px; padding-bottom: 12px; }
+.kop-rij { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+.logo {
+  display: inline-flex; align-items: center; min-height: var(--raak);
+  font-family: var(--font-hand); font-weight: 700; font-size: 40px; color: var(--inkt); text-decoration: none; line-height: 1;
+}
+.logo:hover { color: var(--inkt); }
+.hoofdmenu { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+.hoofdmenu a { color: var(--inkt); text-decoration: none; padding: 12px 0; }
+.hoofdmenu a:hover { text-decoration: underline; }
+.hoofdmenu a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.hoofdmenu .knop-raam {
+  color: #fff; background: var(--raam); padding: 12px 20px; border-radius: 6px; font-weight: 700;
+}
+.hoofdmenu .knop-raam:hover { background: var(--raam-donker); text-decoration: none; }
+
+.dienstenmenu { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.dienstenmenu-label { font-family: var(--font-hand); font-size: 26px; color: var(--violet); margin-right: 6px; }
+.dienstenmenu a {
+  display: inline-block; background: var(--papier-licht); color: var(--inkt);
+  border: 1.5px solid var(--raam); padding: 11px 18px; border-radius: 999px;
+  text-decoration: none; font-size: 15px; font-weight: 500;
+}
+.dienstenmenu a:hover { background: #E6EDF2; }
+.dienstenmenu a[aria-current="page"] { background: var(--raam); color: #fff; font-weight: 700; }
+
+/* ---------- Hero ---------- */
+
+.hero { display: flex; flex-wrap: wrap; gap: 64px; align-items: center; padding-top: 48px; padding-bottom: 200px; }
+.hero-tekst { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 26px; }
+.hero-raam { flex: 1 1 360px; min-width: 0; max-width: 440px; }
+.raam {
+  height: 520px; border: 16px solid var(--raam); border-radius: var(--boog-groot);
+  background: var(--raam-licht); overflow: hidden;
+}
+.raam img { width: 100%; height: 100%; object-fit: cover; }
+.vensterbank { height: 22px; background: var(--raam-donker); margin: 0 calc(-1 * var(--vensterbank-uitsteek)); border-radius: 3px; }
+
+/* ---------- Secties ---------- */
+
+.sectie { display: flex; flex-direction: column; gap: 40px; padding-bottom: 88px; }
+.sectie--na-tak { padding-top: 150px; }
+.sectie--na-luiaard { padding-top: 250px; }
+.sectie-kop { display: flex; flex-direction: column; gap: 10px; }
+.sectie-kop--rij { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.sectie-kop--rij > a { display: inline-flex; align-items: center; min-height: var(--raak); }
+
+/* Kaarten (boogvormig) */
+.kaarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.kaart {
+  display: flex; flex-direction: column; gap: 12px; text-align: center;
+  color: var(--inkt); text-decoration: none; background: var(--kaart);
+  border: 2px solid var(--raam); border-radius: 120px 120px 6px 6px;
+  padding: 64px 26px 30px; transition: transform .15s ease;
+}
+.kaart:hover { color: var(--inkt); transform: translateY(-3px); }
+.kaart h3 { font-size: 22px; }
+.kaart p { margin: 0; color: var(--inkt-zacht); line-height: 1.6; }
+.kaart-meer { font-family: var(--font-hand); font-size: 24px; color: var(--terracotta); }
+
+/* Foto's in een boograam */
+.fotos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+.foto { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.foto-raam {
+  position: relative; height: 330px; overflow: hidden;
+  border: 10px solid var(--raam); border-radius: var(--boog);
+  background: var(--placeholder);
+  display: flex; align-items: center; justify-content: center;
+  color: #5C5345; font-size: 14px;
+}
+.foto-raam--roede::after {
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 6px; margin-left: -3px; background: var(--raam);
+}
+.foto-raam img { width: 100%; height: 100%; object-fit: cover; }
+.foto figcaption { font-family: var(--font-hand); font-size: 26px; text-align: center; line-height: 1.2; }
+
+/* Over mij */
+.over { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+.over-portret {
+  flex: 1 1 300px; max-width: 360px; height: 380px;
+  border-radius: 180px 180px 6px 6px; background: var(--placeholder);
+  display: flex; align-items: center; justify-content: center; color: #5C5345; font-size: 14px;
+}
+.over-tekst { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.over-tekst p { margin: 0; font-size: 19px; line-height: 1.7; }
+.over-tekst .titel-hand { color: var(--violet); }
+.handtekening { font-family: var(--font-hand); font-size: 32px; color: var(--raam); }
+
+/* Dienstpagina: "Wat kan je verwachten?" */
+.dienst-hero { display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start; padding-top: 48px; padding-bottom: 88px; }
+.dienst-hero .hero-tekst { padding-top: 24px; gap: 24px; }
+.dienst-hero h1 { font-size: clamp(40px, 5.5vw, 72px); }
+.verwachten {
+  flex: 1 1 340px; min-width: 0; max-width: 460px;
+  border: 2px solid var(--raam); border-radius: 160px 160px 8px 8px;
+  background: var(--kaart); padding: 72px 32px 32px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.verwachten h2 { font-family: var(--font-hand); font-size: 38px; text-align: center; color: var(--raam); }
+.verwachten ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+.verwachten li { display: flex; gap: 14px; align-items: flex-start; }
+.verwachten li::before {
+  content: ""; flex: 0 0 auto; width: 12px; height: 12px; margin-top: 6px; border-radius: 50%;
+  background: var(--boterbloem); border: 2px solid var(--boterbloem-rand);
+}
+.verwachten h3 { font-size: 19px; margin-bottom: 4px; }
+.verwachten p { margin: 0; color: var(--inkt-zacht); line-height: 1.55; font-size: 16px; }
+.fotos-sectie { padding-top: 80px; }
+
+/* ---------- Contact en voet ---------- */
+
+.contact { background: var(--raam); color: #fff; padding: 96px 0; }
+.contact .wrap { display: flex; flex-direction: column; gap: 22px; align-items: center; text-align: center; }
+.contact h2 { font-size: clamp(32px, 5vw, 60px); font-weight: 700; }
+.contact-hand { margin: 0; font-family: var(--font-hand); font-size: 34px; color: var(--goud); line-height: 1.2; }
+.contact .knop-licht {
+  background: var(--papier); color: var(--inkt); padding: 18px 32px; border-radius: 6px;
+  text-decoration: none; font-weight: 700; font-size: 18px;
+}
+.contact .knop-licht:hover { background: #fff; }
+.voet { margin: 16px 0 0; font-size: 14px; color: #DCE6EE; }
+.voet a { color: var(--goud-licht); padding: calc((var(--raak) - 1.6em) / 2) 0; }
+
+/* ---------- Kleine schermen ---------- */
+
+@media (max-width: 640px) {
+  :root { --links: 48px; --rechts: 16px; --vensterbank-uitsteek: 12px; }
+  .kop { padding-top: 80px; }
+  .hero { gap: 40px; padding-bottom: 180px; }
+  .raam { height: 340px; }
+  .hoofdmenu { gap: 16px; }
+  .sectie--na-luiaard { padding-top: 200px; }
+  .kaart { padding-top: 56px; }
+}
+
+/* ---------- Brede schermen ---------- */
+
+@media (min-width: 1400px) and (max-width: 1900px) {
+  .kop { padding-top: var(--kop-top-breed); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaart { transition: none; }
+}
