@@ -19,8 +19,9 @@
   --boterbloem-rand: #D9A21B;
   --placeholder: #E4D8C4;
 
-  --font-hand: 'Caveat', cursive;
-  --font-tekst: 'Karla', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-tekst: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
   --links: 52px;   /* ruimte voor de stam links */
   --rechts: 24px;
@@ -35,6 +36,7 @@
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background: var(--papier);
   color: var(--inkt);
   font-family: var(--font-tekst);
@@ -61,12 +63,13 @@ a:hover { color: var(--terracotta-donker); }
 
 /* ---------- Pagina, stam en decoratie ---------- */
 
-.pagina { position: relative; overflow: hidden; min-height: 100vh; }
+/* clip i.p.v. hidden: anders blijft de stapel-hero niet plakken tijdens het scrollen */
+.pagina { position: relative; overflow: clip; min-height: 100vh; }
 
 .stam {
   position: absolute; left: 0; top: 0;
   width: 40px; height: 100%;
-  z-index: 2; pointer-events: none;
+  z-index: 6; pointer-events: none; /* ook boven de stapel-hero */
 }
 
 .zone { position: relative; }
@@ -90,9 +93,10 @@ a:hover { color: var(--terracotta-donker); }
 /* ---------- Typografie ---------- */
 
 h1, h2, h3 { margin: 0; line-height: 1.1; overflow-wrap: break-word; }
-h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.04; }
-.titel-hand { font-family: var(--font-hand); font-weight: 700; font-size: clamp(44px, 6vw, 60px); }
-.kicker { margin: 0; font-family: var(--font-hand); font-size: 32px; color: var(--violet); line-height: 1.2; }
+h1 { font-family: var(--font-serif); font-size: clamp(46px, 6.6vw, 92px); font-weight: 400; letter-spacing: -0.03em; line-height: 0.95; }
+h1 em, h2 em, h3 em { font-style: italic; }
+.titel-hand { font-family: var(--font-serif); font-weight: 400; font-size: clamp(44px, 6vw, 68px); letter-spacing: -0.025em; line-height: 1; }
+.kicker { margin: 0; font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; color: var(--violet); line-height: 1.4; }
 .intro { margin: 0; font-size: 20px; line-height: 1.65; max-width: 560px; color: var(--inkt-zacht); }
 .lead { margin: 0; font-size: 19px; line-height: 1.65; max-width: 640px; color: var(--inkt-zacht); }
 .accent { color: var(--raam); }
@@ -102,12 +106,12 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 .knoppen { display: flex; flex-wrap: wrap; gap: 16px; }
 .knop, .knop-lijn {
   display: inline-block; padding: 16px 28px; border-radius: 6px;
-  font-weight: 700; font-size: 17px; text-decoration: none; line-height: 1.2;
+  font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px; text-decoration: none; line-height: 1.2;
 }
 .knop { background: var(--terracotta); color: var(--papier-licht); }
-.knop:hover { background: var(--terracotta-donker); color: var(--papier-licht); }
-.knop-lijn { border: 1.5px solid var(--inkt); color: var(--inkt); font-weight: 500; padding: 14.5px 26px; }
-.knop-lijn:hover { background: var(--inkt); color: var(--papier); }
+.knop:hover, .knop:focus-visible { background: var(--terracotta-donker); color: var(--papier-licht); }
+.knop-lijn { border: 1.5px solid var(--inkt); color: var(--inkt); padding: 14.5px 26px; }
+.knop-lijn:hover, .knop-lijn:focus-visible { background: var(--inkt); color: var(--papier); }
 
 /* ---------- Menu ---------- */
 
@@ -115,28 +119,116 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 .kop .wrap { display: flex; flex-direction: column; gap: 16px; padding-top: 20px; padding-bottom: 12px; }
 .kop-rij { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
 .logo {
-  display: inline-flex; align-items: center; min-height: var(--raak);
-  font-family: var(--font-hand); font-weight: 700; font-size: 40px; color: var(--inkt); text-decoration: none; line-height: 1;
+  display: inline-block; min-height: var(--raak); font-family: var(--font-serif); font-weight: 400; font-size: 40px; letter-spacing: -0.02em;
+  color: var(--inkt); text-decoration: none; line-height: 1.15; transform-origin: 20% 90%;
+  transition: transform .55s cubic-bezier(.3, 1.6, .5, 1);
 }
-.logo:hover { color: var(--inkt); }
-.hoofdmenu { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
-.hoofdmenu a { color: var(--inkt); text-decoration: none; padding: 12px 0; }
-.hoofdmenu a:hover { text-decoration: underline; }
-.hoofdmenu a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.logo span { transition: color .3s; }
+.logo:hover, .logo:focus-visible { color: var(--inkt); transform: rotate(-3deg) scale(1.04); }
+.logo:hover span, .logo:focus-visible span { font-style: italic; color: var(--terracotta); }
+
+.hoofdmenu { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }
+.hoofdmenu a {
+  position: relative; display: inline-block; min-width: var(--raak); text-align: center; color: var(--inkt); text-decoration: none; padding: 14px 0;
+  font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px;
+  transition: color .25s, transform .35s cubic-bezier(.3, 1.6, .5, 1);
+}
+/* golvend lijntje dat zich onder het woord tekent */
+.hoofdmenu a:not(.knop-raam)::after {
+  content: ""; position: absolute; left: 0; bottom: 4px; height: 8px; width: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='8' viewBox='0 0 48 8'%3E%3Cpath d='M0 4 C 6 0, 12 0, 18 4 S 30 8, 36 4 S 44 1, 48 4' fill='none' stroke='%23A8452A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") left center / 48px 8px repeat-x;
+  transition: width .5s cubic-bezier(.6, 0, .2, 1);
+}
+.hoofdmenu a:not(.knop-raam):hover, .hoofdmenu a:not(.knop-raam):focus-visible { color: var(--terracotta); transform: translateY(-2px); }
+.hoofdmenu a:not(.knop-raam):hover::after, .hoofdmenu a:not(.knop-raam):focus-visible::after,
+.hoofdmenu a[aria-current="page"]::after { width: 100%; }
 .hoofdmenu .knop-raam {
-  color: #fff; background: var(--raam); padding: 12px 20px; border-radius: 6px; font-weight: 700;
+  display: inline-flex; align-items: center; color: #fff; background: var(--raam); padding: 14px 20px; border-radius: 6px;
+  box-shadow: 0 0 0 0 var(--goud);
+  transition: transform .4s cubic-bezier(.3, 1.6, .5, 1), box-shadow .35s, background .3s;
 }
-.hoofdmenu .knop-raam:hover { background: var(--raam-donker); text-decoration: none; }
+.hoofdmenu .knop-raam::after {
+  content: "→"; display: inline-block; overflow: hidden; max-width: 0; opacity: 0; margin-left: 0;
+  transition: max-width .35s, opacity .3s, margin-left .35s;
+}
+.hoofdmenu .knop-raam:hover, .hoofdmenu .knop-raam:focus-visible {
+  color: #fff; background: var(--raam-donker); transform: translateY(-3px) rotate(-1deg); box-shadow: 0 10px 0 -4px var(--goud);
+}
+.hoofdmenu .knop-raam:hover::after, .hoofdmenu .knop-raam:focus-visible::after { max-width: 1.4em; opacity: 1; margin-left: 10px; }
 
 .dienstenmenu { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.dienstenmenu-label { font-family: var(--font-hand); font-size: 26px; color: var(--violet); margin-right: 6px; }
+.dienstenmenu-label { font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 11px; color: var(--violet); margin-right: 4px; }
 .dienstenmenu a {
+  --tint: #E6EDF2; --kantel: -2deg;
   display: inline-block; background: var(--papier-licht); color: var(--inkt);
-  border: 1.5px solid var(--raam); padding: 11px 18px; border-radius: 999px;
-  text-decoration: none; font-size: 15px; font-weight: 500;
+  border: 1.5px solid var(--raam); padding: 11px 16px; border-radius: 999px;
+  text-decoration: none; font-size: 14px; font-weight: 500; box-shadow: 0 0 0 0 var(--raam);
+  transition: transform .45s cubic-bezier(.3, 1.6, .5, 1), background .25s, box-shadow .3s;
 }
-.dienstenmenu a:hover { background: #E6EDF2; }
-.dienstenmenu a[aria-current="page"] { background: var(--raam); color: #fff; font-weight: 700; }
+/* elk knopje krijgt zijn eigen zachte kleur en kantelt als een kaartje */
+.dienstenmenu a:nth-of-type(1) { --tint: #F9D8C4; --kantel: -2deg; }
+.dienstenmenu a:nth-of-type(2) { --tint: #F7CAD6; --kantel: 2deg; }
+.dienstenmenu a:nth-of-type(3) { --tint: #F6E0A2; --kantel: -1.5deg; }
+.dienstenmenu a:nth-of-type(4) { --tint: #E4D3F5; --kantel: 2deg; }
+.dienstenmenu a:nth-of-type(5) { --tint: #D5E9C9; --kantel: -2deg; }
+.dienstenmenu a:nth-of-type(6) { --tint: #D7E5EF; --kantel: 1.5deg; }
+.dienstenmenu a:hover, .dienstenmenu a:focus-visible {
+  color: var(--inkt); background: var(--tint); transform: translateY(-4px) rotate(var(--kantel)); box-shadow: 0 6px 0 -1px var(--raam);
+}
+.dienstenmenu a[aria-current="page"], .dienstenmenu a[aria-current="page"]:hover { background: var(--raam); color: #fff; font-weight: 600; }
+
+/* Home: de navigatie ligt bovenaan over de stapel en scrolt mee weg */
+.pagina--home .kop { padding-top: 0; }
+.pagina--home .kop .wrap { position: relative; }
+.kop-tak { display: none; }
+@media (min-width: 701px) {
+  .pagina--home .kop { position: absolute; top: 0; left: 0; right: 0; z-index: 7; }
+  /* de grote bloesemtak: komt uit de stam, het logo zit erop */
+  .kop-tak { display: block; position: absolute; left: -440px; top: 0; width: 1180px; max-width: none; height: 100px; pointer-events: none; }
+  .pagina--home .kop-rij, .pagina--home .dienstenmenu { position: relative; }
+  /* zonder JavaScript (en heel even ervoor): titel en intro beginnen onder de navigatie die erover ligt */
+  .pagina--home .stapel__statisch { padding-top: 230px; }
+}
+/* smaller dan de tak lang is: ze vervaagt vóór Home / Over mij */
+@media (min-width: 701px) and (max-width: 1180px) {
+  .kop-tak {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100vw - 90px), transparent calc(100vw - 10px));
+    mask-image: linear-gradient(to right, #000 calc(100vw - 90px), transparent calc(100vw - 10px));
+  }
+}
+/* de vaste hero-tekst in de stapel (stapel.js verhuist ze naar de tafel) en de foto's eronder zonder JavaScript */
+.stapel__statisch { padding-top: 48px; padding-bottom: 56px; }
+.pagina--home .stapel > noscript .fotos, .pagina--home .stapel > .wrap .fotos { max-width: 640px; padding-bottom: 72px; }
+
+/* Home als one-page: elk blok is ongeveer één scherm hoog */
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.pagina--home .zone { min-height: min(100vh, 1000px); display: flex; flex-direction: column; justify-content: center; }
+.pagina--home .zone > .wrap { width: 100%; }
+.pagina--home #aanbod { padding-top: 120px; padding-bottom: 64px; gap: 32px; }
+.pagina--home #werk { padding-top: 200px; padding-bottom: 64px; }
+.pagina--home .kaarten { gap: 20px; }
+.pagina--home .kaart { padding: 44px 24px 24px; }
+/* laatste scherm: "Hoi, ik ben Kim" + weide + contact samen, daaronder niets meer */
+.slotblok { min-height: min(100vh, 1000px); display: flex; flex-direction: column; }
+.slotblok .zone { min-height: 0; flex: 1 0 auto; }
+.slotblok #over { padding-top: 130px; padding-bottom: 32px; }
+.slotblok .over-portret { max-width: 320px; height: 320px; border-radius: 160px 160px 6px 6px; }
+/* de weide vult de breedte; boven 1280px groeit de strook mee, anders worden de bloemen afgesneden */
+.slotblok .weide-strook { flex: none; height: max(90px, 7vw); }
+.slotblok .weide-strook .deco { height: max(90px, 7vw); }
+.slotblok .contact { flex: none; padding: 40px 0 36px; }
+.slotblok .contact .wrap { gap: 16px; }
+.slotblok .contact h2 { font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -0.02em; line-height: 1.05; }
+.slotblok .contact-hand { font-size: 26px; }
+.slotblok .voet { margin-top: 8px; }
+@media (min-width: 701px) {
+  .slotblok .deco--tak { width: 520px; } /* korf en bijtjes blijven boven de titel */
+}
+@media (min-width: 701px) and (max-height: 800px) {
+  .slotblok .over-portret { height: 240px; max-width: 240px; }
+  .slotblok #over { padding-top: 100px; }
+  .slotblok .deco--tak { width: 330px; } /* kleinere tak, zodat de korf boven de titel blijft */
+}
 
 /* ---------- Hero ---------- */
 
@@ -165,12 +257,13 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
   display: flex; flex-direction: column; gap: 12px; text-align: center;
   color: var(--inkt); text-decoration: none; background: var(--kaart);
   border: 2px solid var(--raam); border-radius: 120px 120px 6px 6px;
-  padding: 64px 26px 30px; transition: transform .15s ease;
+  padding: 64px 26px 30px; transition: translate .2s ease, box-shadow .2s ease;
 }
-.kaart:hover { color: var(--inkt); transform: translateY(-3px); }
-.kaart h3 { font-size: 22px; }
+/* translate i.p.v. transform: transform is van de scrollvloei */
+.kaart:hover, .kaart:focus-visible { color: var(--inkt); translate: 0 -4px; box-shadow: 0 6px 0 -1px var(--raam); }
+.kaart h3 { font-family: var(--font-serif); font-weight: 400; font-size: 28px; letter-spacing: -0.01em; }
 .kaart p { margin: 0; color: var(--inkt-zacht); line-height: 1.6; }
-.kaart-meer { font-family: var(--font-hand); font-size: 24px; color: var(--terracotta); }
+.kaart-meer { font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; color: var(--terracotta); }
 
 /* Foto's in een boograam */
 .fotos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
@@ -187,7 +280,63 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
   width: 6px; margin-left: -3px; background: var(--raam);
 }
 .foto-raam img { width: 100%; height: 100%; object-fit: cover; }
-.foto figcaption { font-family: var(--font-hand); font-size: 26px; text-align: center; line-height: 1.2; }
+.foto-raam--contain { background: var(--papier-licht); }
+.foto-raam--contain img { object-fit: contain; }
+.foto figcaption { font-family: var(--font-serif); font-style: italic; font-size: 24px; text-align: center; line-height: 1.2; }
+
+/* Ramen in "Mijn creatieve avontuur": drie soorten, ze gaan open bij hover, focus of een tik.
+   Met JavaScript (klasse .rm--js) regelt vloei.js de focus, zodat aria-expanded en het beeld gelijk lopen. */
+.rm { display: block; position: relative; width: 100%; height: 340px; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+.rm:focus-visible { outline: 3px solid var(--terracotta); outline-offset: 6px; border-radius: 8px; }
+.rm span { display: block; }
+.rm .visueel-verborgen { display: inline; }
+.rm-zicht {
+  position: absolute; inset: 0; display: flex !important; align-items: center; justify-content: center;
+  font-size: 14px; color: #5C5345; letter-spacing: .04em; opacity: 0; transition: opacity .5s .15s;
+}
+.rm:not(.rm--js):focus-visible .rm-zicht, .rm.is-open .rm-zicht { opacity: 1; }
+.rm-p { position: absolute; top: 0; bottom: 0; transition: transform .9s cubic-bezier(.2, .8, .2, 1); will-change: transform; }
+.glas { background: linear-gradient(135deg, rgba(232,242,248,.95) 0%, rgba(190,214,229,.9) 45%, rgba(222,236,245,.92) 55%, rgba(176,204,222,.9) 100%); }
+.glas::before { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.55) 38%, transparent 46%); }
+/* 1 · boograam met twee vleugels */
+.rm-boog { position: absolute; inset: 0; perspective: 900px; border: 10px solid var(--raam); border-radius: var(--boog); overflow: hidden; background: var(--raam); }
+.rm-boog .rm-zicht { background: var(--placeholder); }
+.rm-boog .rm-p { width: 50%; border: 5px solid var(--raam); }
+.rm-boog .rm-l { left: 0; transform-origin: left center; }
+.rm-boog .rm-r { right: 0; transform-origin: right center; }
+.rm-boog .rm-p::after { content: ""; position: absolute; left: 0; right: 0; top: 58%; height: 5px; background: var(--raam); }
+.rm:not(.rm--js):focus-visible .rm-boog .rm-l, .rm.is-open .rm-boog .rm-l { transform: rotateY(-74deg); }
+.rm:not(.rm--js):focus-visible .rm-boog .rm-r, .rm.is-open .rm-boog .rm-r { transform: rotateY(74deg); }
+/* 2 · vierkant raam met groene luiken */
+.rm-luik { position: absolute; perspective: 900px; top: 24px; bottom: 24px; left: 20%; right: 20%; border: 10px solid var(--papier); outline: 2px solid #C9B79A; background: #D9E0CF; }
+.rm-ruitjes {
+  position: absolute; inset: 0; opacity: .9;
+  background: linear-gradient(var(--papier), var(--papier)) 50% 0 / 6px 100% no-repeat,
+              linear-gradient(var(--papier), var(--papier)) 0 33.3% / 100% 6px no-repeat,
+              linear-gradient(var(--papier), var(--papier)) 0 66.6% / 100% 6px no-repeat;
+}
+.rm-luik .rm-p { width: 50%; top: -10px; bottom: -10px; border: 4px solid #2F6B44; background: repeating-linear-gradient(180deg, #4F8A5B 0 14px, #3F7A4C 14px 17px); }
+.rm-luik .rm-l { left: -10px; transform-origin: left center; }
+.rm-luik .rm-r { right: -10px; transform-origin: right center; }
+.rm-luik .rm-p::after { content: ""; position: absolute; top: 50%; width: 6px; height: 16px; margin-top: -8px; background: #E9B44C; border-radius: 3px; }
+.rm-luik .rm-l::after { right: 8px; }
+.rm-luik .rm-r::after { left: 8px; }
+.rm:not(.rm--js):focus-visible .rm-luik .rm-l, .rm.is-open .rm-luik .rm-l { transform: rotateY(-160deg); }
+.rm:not(.rm--js):focus-visible .rm-luik .rm-r, .rm.is-open .rm-luik .rm-r { transform: rotateY(160deg); }
+/* 3 · rond raam dat als één vleugel opendraait */
+.rm-rond { position: absolute; perspective: 900px; left: 50%; top: 50%; width: 300px; height: 300px; max-width: 100%; margin: -150px 0 0 -150px; border-radius: 50%; border: 12px solid var(--violet); overflow: hidden; background: #E6D4E8; }
+.rm-rond .rm-p { left: 0; right: 0; border-radius: 50%; transform-origin: left center; }
+.rm-rond .rm-p::after { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--violet), var(--violet)) 50% 0 / 6px 100% no-repeat, linear-gradient(var(--violet), var(--violet)) 0 50% / 100% 6px no-repeat; }
+.rm:not(.rm--js):focus-visible .rm-rond .rm-p, .rm.is-open .rm-rond .rm-p { transform: rotateY(-78deg); }
+/* hover alleen waar een muis is: op een aanraakscherm blijft hover anders hangen na een tik */
+@media (hover: hover) {
+  .rm:hover .rm-zicht { opacity: 1; }
+  .rm:hover .rm-boog .rm-l { transform: rotateY(-74deg); }
+  .rm:hover .rm-boog .rm-r { transform: rotateY(74deg); }
+  .rm:hover .rm-luik .rm-l { transform: rotateY(-160deg); }
+  .rm:hover .rm-luik .rm-r { transform: rotateY(160deg); }
+  .rm:hover .rm-rond .rm-p { transform: rotateY(-78deg); }
+}
 
 /* Over mij */
 .over { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
@@ -199,7 +348,7 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 .over-tekst { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 .over-tekst p { margin: 0; font-size: 19px; line-height: 1.7; }
 .over-tekst .titel-hand { color: var(--violet); }
-.handtekening { font-family: var(--font-hand); font-size: 32px; color: var(--raam); }
+.over-tekst .handtekening { font-family: var(--font-serif); font-style: italic; font-size: 32px; color: var(--raam); }
 
 /* Dienstpagina: "Wat kan je verwachten?" */
 .dienst-hero { display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start; padding-top: 48px; padding-bottom: 88px; }
@@ -211,14 +360,14 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
   background: var(--kaart); padding: 72px 32px 32px;
   display: flex; flex-direction: column; gap: 20px;
 }
-.verwachten h2 { font-family: var(--font-hand); font-size: 38px; text-align: center; color: var(--raam); }
+.verwachten h2 { font-family: var(--font-serif); font-weight: 400; font-size: 36px; letter-spacing: -0.02em; text-align: center; color: var(--raam); }
 .verwachten ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
 .verwachten li { display: flex; gap: 14px; align-items: flex-start; }
 .verwachten li::before {
   content: ""; flex: 0 0 auto; width: 12px; height: 12px; margin-top: 6px; border-radius: 50%;
   background: var(--boterbloem); border: 2px solid var(--boterbloem-rand);
 }
-.verwachten h3 { font-size: 19px; margin-bottom: 4px; }
+.verwachten h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
 .verwachten p { margin: 0; color: var(--inkt-zacht); line-height: 1.55; font-size: 16px; }
 .fotos-sectie { padding-top: 80px; }
 
@@ -226,15 +375,16 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 
 .contact { background: var(--raam); color: #fff; padding: 96px 0; }
 .contact .wrap { display: flex; flex-direction: column; gap: 22px; align-items: center; text-align: center; }
-.contact h2 { font-size: clamp(32px, 5vw, 60px); font-weight: 700; }
-.contact-hand { margin: 0; font-family: var(--font-hand); font-size: 34px; color: var(--goud); line-height: 1.2; }
+.contact h2 { font-family: var(--font-serif); font-size: clamp(38px, 5.6vw, 72px); font-weight: 400; letter-spacing: -0.03em; line-height: 1; }
+.contact-hand { margin: 0; font-family: var(--font-serif); font-style: italic; font-size: 30px; color: var(--goud); line-height: 1.2; }
 .contact .knop-licht {
   background: var(--papier); color: var(--inkt); padding: 18px 32px; border-radius: 6px;
-  text-decoration: none; font-weight: 700; font-size: 18px;
+  text-decoration: none; font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px;
 }
-.contact .knop-licht:hover { background: #fff; }
+.contact .knop-licht:hover, .contact .knop-licht:focus-visible { background: #fff; }
 .voet { margin: 16px 0 0; font-size: 14px; color: #DCE6EE; }
 .voet a { display: inline-block; color: var(--goud-licht); padding: calc((var(--raak) - 1.6em) / 2) 0; }
+.voet-deel { white-space: nowrap; } /* het puntje blijft bij wat erop volgt */
 
 /* ---------- Kleine schermen ---------- */
 
@@ -250,6 +400,15 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
   .hoofdmenu { gap: 16px; }
   .sectie--na-luiaard { padding-top: 200px; }
   .kaart { padding-top: 56px; }
+  .contact .knop-licht { display: inline-block; padding: 18px 16px; letter-spacing: 0.1em; font-size: 12px; }
+  /* de voet staat hier op twee regels: geen los puntje aan het begin of einde van een regel */
+  .voet-deel { display: block; }
+  .voet-punt { display: none; }
+}
+
+@media (max-width: 700px) {
+  .slotblok #over { padding-top: 150px; }
+  .rm-rond { width: 260px; height: 260px; margin: -130px 0 0 -130px; }
 }
 
 /* ---------- Brede schermen ---------- */
@@ -259,5 +418,10 @@ h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 700; letter-spacing: -0.02e
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kaart { transition: none; }
+  .kaart, .rm-p, .rm-zicht, .logo, .logo span, .hoofdmenu a, .hoofdmenu a:not(.knop-raam)::after, .hoofdmenu .knop-raam, .hoofdmenu .knop-raam::after, .dienstenmenu a { transition: none; }
+  .logo:hover, .logo:focus-visible,
+  .hoofdmenu a:not(.knop-raam):hover, .hoofdmenu a:not(.knop-raam):focus-visible,
+  .hoofdmenu .knop-raam:hover, .hoofdmenu .knop-raam:focus-visible,
+  .dienstenmenu a:hover, .dienstenmenu a:focus-visible { transform: none; }
+  .kaart:hover, .kaart:focus-visible { translate: none; }
 }

@@ -10,19 +10,18 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_BE">
 <meta property="og:site_name" content="Kimbo Creates">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=Karla:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/stapel.css">
 </head>
 <body>
 <a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
 <div class="pagina">
   <img class="deco deco--tak" src="assets/deco/tak-dienst.svg" width="720" height="150" alt="" aria-hidden="true">
-  <header class="kop">
+  <header class="kop" id="top">
     <div class="wrap">
       <div class="kop-rij">
-        <a class="logo" href="index.html">Kimbo creates</a>
+        <a class="logo" href="index.html">Kimbo <span>creates</span></a>
         <nav class="hoofdmenu" aria-label="Hoofdmenu">
           <a href="index.html">Home</a>
           <a href="index.html#over">Over mij</a>
@@ -67,13 +66,16 @@
   <div class="zone zone--licht">
     <section class="wrap sectie fotos-sectie" id="fotos" aria-labelledby="fotos-titel">
       <h2 class="titel-hand" id="fotos-titel">Een greep uit mijn werk</h2>
-      <div class="fotos">
+      <div class="stapel-kader">
+        <div class="stapel" data-modus="galerij">
+          <script type="application/json" class="stapel__data">{"items": [{"titel": "Lenteraam met bloesem", "soort": "Raam- en muurschilderingen", "img": "assets/img/lenteraam-bloesem.jpg", "alt": "Raamschildering met een bloesemtak, lavendel, boterbloemen en een vlinder"}, {"titel": "Luiaard op de muur", "soort": "Raam- en muurschilderingen", "img": "assets/img/luiaard.webp", "alt": "Handgeschilderde luiaard op een tak", "fit": "contain"}, {"titel": "[Bruidsraam]", "soort": "Raam- en muurschilderingen"}, {"titel": "[Valentijnsraam]", "soort": "Raam- en muurschilderingen"}, {"titel": "[Bloemenkrans op glas]", "soort": "Raam- en muurschilderingen"}, {"titel": "[Kinderkamer]", "soort": "Raam- en muurschilderingen"}]}</script>
+          <noscript><div class="fotos">
         <figure class="foto">
           <div class="foto-raam"><img src="assets/img/lenteraam-bloesem.jpg" alt="Raamschildering met een bloesemtak, lavendel, boterbloemen en een vlinder" loading="lazy"></div>
           <figcaption>Lenteraam met bloesem</figcaption>
         </figure>
         <figure class="foto">
-          <div class="foto-raam"><img src="assets/img/luiaard.webp" alt="Handgeschilderde luiaard op een tak" loading="lazy"></div>
+          <div class="foto-raam foto-raam--contain"><img src="assets/img/luiaard.webp" alt="Handgeschilderde luiaard op een tak" loading="lazy"></div>
           <figcaption>Luiaard op de muur</figcaption>
         </figure>
         <figure class="foto">
@@ -92,6 +94,8 @@
           <div class="foto-raam">[Foto]</div>
           <figcaption>[Kinderkamer]</figcaption>
         </figure>
+          </div></noscript>
+        </div>
       </div>
     </section>
   </div>
@@ -106,11 +110,12 @@
       <h2 id="contact-titel">Zin in iets moois?</h2>
       <p class="contact-hand">Stuur me gerust een berichtje!</p>
       <a class="knop-licht" href="mailto:[EMAIL]">Stuur me een berichtje</a>
-      <p class="voet">© Kimbo Creates · [BTW-nummer] · <a href="https://www.instagram.com/kimbo_creates/">@kimbo_creates</a></p>
+      <p class="voet">© Kimbo Creates · [BTW-nummer] <span class="voet-deel"><span class="voet-punt">· </span><a href="https://www.instagram.com/kimbo_creates/">@kimbo_creates</a></span></p>
     </div>
   </footer>
 
   <img class="stam" src="assets/deco/stam.svg" alt="" aria-hidden="true">
 </div>
+<script src="assets/js/stapel.js" defer></script>
 </body>
 </html>

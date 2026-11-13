@@ -1,0 +1,204 @@
+/* Stapel werkjes – kaartjes op een papieren tafel.
+   Hero op de home (scrollverhaal) en fotogalerij op de dienstpagina's.
+   Gebruikt de variabelen uit style.css. */
+
+.stapel { position: relative; color: var(--inkt); font-family: var(--font-tekst); }
+.stapel--hero { z-index: 3; }
+.stapel__track { position: relative; height: 680px; }
+.stapel--hero .stapel__track { height: 210vh; }
+
+.stapel__stage {
+  --cw: 180px;
+  position: sticky;
+  top: 0;
+  height: 680px;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--papier-licht);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  isolation: isolate;
+}
+.stapel--hero .stapel__stage { height: 100vh; height: 100svh; background: var(--papier); }
+.stapel__licht {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 62% 40%, rgba(255, 253, 248, 0) 40%, rgba(120, 96, 60, 0.16));
+}
+
+/* ---------- Kaartjes ---------- */
+.stapel__desk { position: absolute; inset: 0; z-index: 2; }
+.werkje {
+  position: absolute; left: 0; top: 0;
+  width: var(--cw); height: calc(var(--cw) * 1.4);
+  font-size: calc(var(--cw) * 0.05);
+  transform-origin: 50% 50%;
+  will-change: transform;
+  cursor: grab;
+  visibility: hidden;
+}
+[data-mode='pile'] .werkje { touch-action: none; }
+[data-mode='index'] .werkje { cursor: pointer; }
+[data-mode='zoom'] .werkje { cursor: default; pointer-events: none; }
+.werkje.is-held { cursor: grabbing; }
+
+/* platte omdraai (scaleX door nul), zoals een kaartje dat je omdraait */
+.werkje__binnen { position: absolute; inset: 0; transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1); }
+.werkje.is-flipped .werkje__binnen { transform: scaleX(-1); }
+[data-mode='zoom'] .werkje.is-feature .werkje__binnen { transform: none; }
+
+.werkje__kant {
+  position: absolute; inset: 0;
+  background: var(--kaart);
+  box-shadow: 0 1px 1px rgba(40, 32, 12, 0.12), 0 6px 18px -6px rgba(40, 32, 12, 0.35);
+  transition: box-shadow 0.3s ease, visibility 0s linear 0.35s;
+}
+.werkje.is-flipped .werkje__voor, .werkje:not(.is-flipped) .werkje__achter { visibility: hidden; }
+.werkje.is-held .werkje__kant { box-shadow: 0 2px 2px rgba(40, 32, 12, 0.1), 0 26px 40px -14px rgba(40, 32, 12, 0.5); }
+
+.werkje__foto {
+  position: absolute; left: 6%; top: calc(var(--cw) * 0.06);
+  width: 88%; height: calc(var(--cw) * 1.1);
+  overflow: hidden; background: var(--placeholder);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: max(1.3em, 10px); letter-spacing: 0.12em; text-transform: uppercase; color: #5C5345;
+}
+.werkje__foto img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.werkje__foto--contain { background: var(--papier-licht); }
+.werkje__foto--contain img { object-fit: contain; }
+
+.werkje__label {
+  position: absolute; left: 6%; right: 6%; bottom: 0;
+  height: calc(var(--cw) * 0.24);
+  display: flex; flex-direction: column; justify-content: center; gap: 0.25em;
+}
+.werkje__no { font-family: var(--font-mono); font-weight: 500; font-size: max(1.3em, 10px); line-height: 1; letter-spacing: 0.1em; text-transform: uppercase; color: #6B6152; white-space: nowrap; }
+.werkje__naam { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: max(2.15em, 12px); line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* washi-tape in de huiskleuren */
+.werkje__tape { position: absolute; pointer-events: none; }
+.werkje__tape::before, .werkje__tape--hoeken::after {
+  content: ''; position: absolute;
+  width: calc(var(--cw) * 0.36); height: calc(var(--cw) * 0.1);
+  background: var(--tape, rgba(159, 179, 194, 0.85));
+  box-shadow: 0 1px 2px rgba(40, 32, 12, 0.15);
+  mix-blend-mode: multiply;
+}
+.werkje__tape--boven { left: 50%; top: 0; }
+.werkje__tape--boven::before { transform: translate(-50%, -45%) rotate(-3deg); }
+.werkje__tape--hoeken { inset: 0; }
+.werkje__tape--hoeken::before { left: -6%; top: 2%; transform: rotate(-38deg); width: calc(var(--cw) * 0.26); }
+.werkje__tape--hoeken::after { right: -6%; bottom: 20%; transform: rotate(-38deg); width: calc(var(--cw) * 0.26); }
+.werkje__tape--zij { right: 0; top: 30%; }
+.werkje__tape--zij::before { transform: translate(-50%, -50%) rotate(84deg); }
+
+.werkje__achter {
+  transform: scaleX(-1);
+  padding: 9% 8% 8%;
+  display: flex; flex-direction: column; gap: 0.45em;
+  overflow: hidden;
+}
+.werkje__kicker { font-family: var(--font-mono); font-weight: 500; font-size: max(1.2em, 10px); line-height: 1.2; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6152; }
+.werkje__titel { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 3.2em; line-height: 0.95; margin-top: 0.15em; }
+.werkje__soort { font-size: max(1.7em, 11px); line-height: 1.25; color: var(--inkt-zacht); }
+.werkje__tekst { margin: auto 0 0; padding-top: 0.7em; border-top: 1px solid rgba(31, 27, 36, 0.16); font-size: 1.55em; line-height: 1.35; color: var(--inkt-zacht); }
+.werkje__link { margin-top: auto; padding: 12px 0; font-family: var(--font-mono); font-weight: 500; font-size: max(1.25em, 12px); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.3; color: var(--terracotta); text-decoration: none; }
+.werkje__link:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+.werkje__tekst + .werkje__link { margin-top: 0.5em; }
+
+/* toetsenbord: onzichtbare knop, muis en vinger gaan via de tafel */
+.werkje__toets { position: absolute; left: 0; top: 0; width: 1px; height: 1px; padding: 0; margin: 0; border: 0; opacity: 0; overflow: hidden; }
+.werkje:focus-within .werkje__kant { outline: 2px solid var(--violet); outline-offset: 3px; }
+
+/* foto waarop de camera landt */
+.stapel__cover { position: absolute; z-index: 3; opacity: 0; pointer-events: none; }
+.stapel__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Overlay (hero) ---------- */
+.stapel__kop { position: absolute; z-index: 1; left: max(56px, 3vw); bottom: clamp(24px, 5vw, 72px); margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: clamp(56px, min(8.4vw, 16vh), 150px); line-height: 0.86; letter-spacing: -0.035em; pointer-events: none; }
+.stapel__kop .ln { display: block; overflow: hidden; padding-bottom: 0.07em; }
+.stapel__kop .li { display: inline-block; }
+.stapel__kop em { font-style: italic; }
+
+.stapel__aside, .stapel__dock, .stapel__index, .stapel__finale, .stapel__laden, .stapel__hint { position: absolute; z-index: 4; }
+
+.stapel__teller { align-self: center; padding: 0 12px 0 14px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #6B6152; white-space: nowrap; }
+.stapel__teller b { background: var(--goud); color: var(--inkt); padding: 2px 6px; font-weight: 500; }
+
+.stapel__aside { left: max(56px, 3vw); top: calc(var(--kop-h, 142px) + 54px); width: min(300px, 30vw); pointer-events: none; }
+.stapel__aside p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--inkt-zacht); }
+.stapel__aside .kicker { margin-bottom: 8px; font-size: 12px; line-height: 1.4; color: var(--violet); }
+.stapel__aside .intro { max-width: none; margin-bottom: 10px; color: var(--inkt); }
+
+.stapel__dock { right: clamp(16px, 2.4vw, 32px); bottom: clamp(20px, 3vw, 40px); }
+.stapel__dock-in { display: flex; gap: 4px; padding: 4px; border: 1px solid rgba(31, 27, 36, 0.16); border-radius: 999px; background: rgba(255, 253, 248, 0.88); }
+.stapel__dock button, .stapel__finale button {
+  appearance: none; border: 0; background: transparent; color: var(--inkt);
+  font: 500 12px/1 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 16px 18px; border-radius: 999px; cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.stapel__dock button:hover:not(:disabled), .stapel__dock button:focus-visible { background: #EFE6D6; }
+.stapel__dock .stapel__sorteer { background: var(--goud); }
+.stapel__dock .stapel__sorteer:hover:not(:disabled), .stapel__dock .stapel__sorteer:focus-visible { background: var(--boterbloem); }
+.stapel__dock button:disabled { opacity: 0.4; cursor: default; }
+
+.stapel__hint { left: 24px; top: 18px; margin: 0; max-width: 340px; font-family: var(--font-serif); font-style: italic; font-size: 22px; line-height: 1.15; color: var(--violet); pointer-events: none; transition: opacity 0.4s ease; }
+[data-mode='index'] .stapel__hint { opacity: 0; }
+
+.stapel__index { left: 0; right: 0; top: clamp(70px, 7vw, 92px); text-align: center; opacity: 0; pointer-events: none; }
+.stapel__index-kicker { margin: 0 0 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6152; }
+.stapel__index-titel { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: clamp(26px, 2.8vw, 42px); line-height: 1; letter-spacing: -0.02em; }
+.stapel__index-titel em { font-style: italic; }
+
+.stapel__finale {
+  inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(22px, 4vw, 64px); color: #FFF8EE; opacity: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(20, 16, 8, 0.66), rgba(20, 16, 8, 0) 58%);
+}
+.stapel__finale-kicker { margin: 0 0 12px; font-size: 13px; font-weight: 700; line-height: 1.4; letter-spacing: 0.14em; text-transform: uppercase; }
+.stapel__finale-kicker::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 10px; border-radius: 50%; background: var(--goud); }
+.stapel__finale h2 { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: clamp(84px, 17vw, 300px); line-height: 0.8; letter-spacing: -0.05em; }
+.stapel__finale h2 em { font-style: italic; }
+.stapel__finale-tekst { margin: 18px 0 24px; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.4; max-width: 640px; }
+.stapel__finale button { align-self: flex-start; color: #FFF8EE; background: rgba(20, 16, 8, 0.2); border: 1.5px solid rgba(255, 248, 238, 0.7); font-size: 14px; padding: 15px 22px; }
+.stapel__finale button:hover { background: var(--goud); border-color: var(--goud); color: var(--inkt); }
+
+.stapel__laden { inset: 0; z-index: 5; display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6152; }
+
+/* omkadering op de dienstpagina's */
+.stapel-kader { border: 2px solid var(--raam); border-radius: 12px; overflow: hidden; }
+/* het gewone raster (zonder JavaScript, of als de gegevens ontbreken) krijgt lucht binnen het kader */
+.stapel-kader noscript .fotos, .stapel-kader .stapel > .fotos { padding: 24px; }
+
+/* home: de navigatie ligt over de tafel, de rastertitel begint eronder (--kop-h komt uit stapel.js) */
+@media (min-width: 701px) {
+  .stapel--hero .stapel__index { top: calc(var(--kop-h, 142px) + 12px); }
+}
+
+/* ---------- Kleine schermen ---------- */
+@media (max-width: 700px) {
+  .stapel__track, .stapel__stage { height: 560px; }
+  .stapel__teller { display: none; }
+  .stapel__kop { top: 24px; bottom: auto; font-size: clamp(44px, 13vw, 68px); }
+  .stapel__aside { width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* blijft leesbaar voor schermlezers */
+  .stapel__dock { left: 16px; right: 16px; bottom: 16px; display: flex; justify-content: center; }
+  .stapel__dock button { padding: 17px 12px; font-size: 11px; letter-spacing: 0.08em; white-space: nowrap; }
+  .stapel--hero .stapel__dock { left: 52px; }
+  .stapel__index { top: 70px; }
+  .stapel--hero .stapel__index { left: var(--links); right: var(--rechts); }
+  .stapel__index-titel { font-size: 21px; }
+  .werkje__tekst { display: none; }
+  .werkje__tekst + .werkje__link { margin-top: auto; }
+}
+
+/* lage schermen: de korte uitleg zou over de titel vallen */
+@media (min-width: 701px) and (max-height: 860px) {
+  .stapel__aside { width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .werkje__binnen, .werkje__kant { transition: none; }
+}
+[data-mode='zoom'] .werkje.is-feature .werkje__voor { visibility: visible; }
+[data-mode='zoom'] .werkje.is-feature .werkje__achter { visibility: hidden; }
