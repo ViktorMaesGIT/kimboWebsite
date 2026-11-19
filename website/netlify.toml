@@ -1,0 +1,15 @@
+# Netlify: publiceer deze map ("website") zonder build-stap.
+[build]
+  publish = "."
+
+# Preview- en testadressen niet laten indexeren door Google.
+[context.deploy-preview]
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

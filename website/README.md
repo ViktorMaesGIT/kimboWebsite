@@ -1,0 +1,53 @@
+# Kimbo Creates – website
+
+Statische website (gewone HTML, CSS en JavaScript, geen build-stap) voor Kimbo Creates:
+raamschilderingen, muurschilderingen en belettering, met de hand geschilderd door Kim.
+
+## Pagina's
+
+| Pagina | Bestand |
+|---|---|
+| Home | `index.html` |
+| Ramen (galerij per seizoen + stapel) | `ramen/index.html` |
+| Muren | `muren/index.html` |
+| FAQ | `faq/index.html` |
+| Bedankt (na het offerteformulier) | `bedankt/index.html` |
+
+## Mappen
+
+- `css/site.css` – alle gedeelde stijlen (krijtbord, fonts, hero met boom, polaroids, animaties)
+- `js/reveal.js` – zachte animatie bij het scrollen
+- `js/seizoen.js` – de raamkaart op de homepage toont het seizoen dat eraan komt
+- `js/stapel.js` – de foto-stapel (rondgooien, omdraaien, netjes op een rij)
+- `js/ramen.js` – de seizoensfilter en de val-animatie op de Ramen-pagina
+- `assets/fonts` – Kimbo Poster (titels), Kimbo Krijt (tekst), Kimbo Casual (reserve)
+- `assets/img/portfolio` – de foto's van Kims werk (bestandsnaam = onderwerp + plaats, voor SEO)
+- `assets/img/deco` – boom, vos en hert in de hero
+- `assets/video` – procesvideo "van schets tot raam"
+
+## Lokaal bekijken in Visual Studio Code
+
+De pagina's staan in mappen (`ramen/index.html`), dus open ze via een kleine webserver,
+niet door het bestand dubbel te klikken:
+
+1. Installeer de extensie **Live Server** (Ritwick Dey).
+2. Open de map `website` in VS Code (File → Open Folder).
+3. Rechtsklik op `index.html` → **Open with Live Server**.
+
+Of in een terminal in deze map: `python -m http.server 8000` en surf naar http://localhost:8000.
+
+## Online zetten (Netlify)
+
+- Koppel de repo aan Netlify en zet **Base directory** op `website` (publish-map staat in `netlify.toml`).
+- Het offerteformulier gebruikt **Netlify Forms**: aanvragen verschijnen in Netlify onder *Forms*.
+  Zet daar een e-mailmelding naar Kims mailadres aan.
+
+## Nog te doen
+
+- Domein: overal staat `https://kimbocreates.be` (canonical, sitemap, robots, JSON-LD op de homepage).
+  Is het domein anders, zoek-en-vervang dat dan in de hele map.
+- Teksten met `[Kim vult aan …]` en `[KBO-NUMMER]` / `[BTW-NUMMER]` invullen.
+- Toestemming van de ouders vragen voor de eenhoornmuur met de naam van het kindje,
+  of de naam van de foto halen.
+- Na publicatie: sitemap indienen in Google Search Console, Google Bedrijfsprofiel aanmaken
+  (dienstverlener met servicegebied, adres verborgen). Zie het SEO-onderzoek.

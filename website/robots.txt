@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /.netlify/
+Disallow: /bedankt/
+
+Sitemap: https://kimbocreates.be/sitemap.xml
