@@ -31,14 +31,14 @@ Dubbelklikken op `index.html` werkt, maar met een kleine webserver ververst de p
 vanzelf als je iets aanpast:
 
 1. Installeer de extensie **Live Server** (Ritwick Dey).
-2. Open de map `website` in VS Code (File → Open Folder).
+2. Open de repo-map in VS Code (File → Open Folder).
 3. Rechtsklik op `index.html` → **Open with Live Server**.
 
 Of in een terminal in deze map: `python -m http.server 8000` en surf naar http://localhost:8000.
 
 ## Online zetten (Lovable)
 
-1. Pak de map `website` in als ZIP (of koppel de repo via GitHub) en importeer hem in Lovable
+1. Koppel deze repo via GitHub (of pak hem in als ZIP) en importeer hem in Lovable
    via Free Import. Vraag Lovable de bestanden als **statische HTML** te laten staan en ze niet
    om te bouwen naar React.
 2. Publiceer. Op een betaald plan (ook Lite) kun je daarna je eigen domein koppelen
