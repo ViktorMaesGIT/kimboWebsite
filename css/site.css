@@ -1,8 +1,12 @@
 /* Kimbo Creates – krijtbordstijl
-   Fonts: Kimbo Poster (grote titels), Kimbo Krijt (de rest), Inter (invulvelden). */
+   Fonts: Kimbo Poster (grote titels), Kimbo Krijt (de rest), Inter (invulvelden).
+   Alle fonts staan lokaal: de site laadt niets van Google of andere externe servers. */
 
 @font-face{font-family:"Kimbo Casual";src:url(../assets/fonts/kimbo-casual.woff2) format("woff2");font-display:swap}
 @font-face{font-family:"Kimbo Poster";src:url(../assets/fonts/kimbo-poster.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Inter";font-weight:400;src:url(../assets/fonts/inter-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Inter";font-weight:500;src:url(../assets/fonts/inter-latin-500-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Inter";font-weight:600;src:url(../assets/fonts/inter-latin-600-normal.woff2) format("woff2");font-display:swap}
 @font-face{font-family:"Kimbo Krijt";src:url(../assets/fonts/kimbo-krijt.woff2) format("woff2");font-display:swap}
 
 html{scroll-behavior:smooth}

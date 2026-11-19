@@ -12,6 +12,7 @@ raamschilderingen, muurschilderingen en belettering, met de hand geschilderd doo
 | Muren | `muren.html` |
 | FAQ | `faq.html` |
 | Bedankt (na het offerteformulier) | `bedankt.html` |
+| Privacy & cookies | `privacy.html` |
 
 ## Mappen
 
@@ -31,14 +32,14 @@ Dubbelklikken op `index.html` werkt, maar met een kleine webserver ververst de p
 vanzelf als je iets aanpast:
 
 1. Installeer de extensie **Live Server** (Ritwick Dey).
-2. Open de repo-map in VS Code (File → Open Folder).
+2. Open de map `website` in VS Code (File → Open Folder).
 3. Rechtsklik op `index.html` → **Open with Live Server**.
 
 Of in een terminal in deze map: `python -m http.server 8000` en surf naar http://localhost:8000.
 
 ## Online zetten (Lovable)
 
-1. Koppel deze repo via GitHub (of pak hem in als ZIP) en importeer hem in Lovable
+1. Pak de map `website` in als ZIP (of koppel de repo via GitHub) en importeer hem in Lovable
    via Free Import. Vraag Lovable de bestanden als **statische HTML** te laten staan en ze niet
    om te bouwen naar React.
 2. Publiceer. Op een betaald plan (ook Lite) kun je daarna je eigen domein koppelen
@@ -54,11 +55,24 @@ Het formulier gebruikt **Web3Forms** (gratis, werkt op elke host):
 2. Vervang in `index.html` de tekst `WEB3FORMS-ACCESS-KEY` door die sleutel.
 3. Na het versturen gaat de bezoeker naar `bedankt.html` (adres staat in het verborgen veld `redirect`).
 
+## Veiligheid en privacy
+
+- Statische site: geen database, geen login, geen server-code. Weinig om aan te vallen.
+- Geen cookies, geen trackers, geen statistieken. Alle fonts, foto's en de video staan lokaal,
+  dus er gaat geen bezoekersinfo naar Google of anderen. Daarom is er geen cookiebanner nodig.
+  Voeg je later Google Analytics, een Meta-pixel of een ingesloten Instagram-feed toe,
+  dan heb je wél een cookiebanner nodig (met een even duidelijke "weigeren"-knop).
+- De foto's bevatten geen EXIF-gegevens (geen GPS-locatie of toestel).
+- Het formulier heeft een verborgen anti-spamveld (botcheck) van Web3Forms.
+- De Web3Forms-sleutel mag in de HTML staan; die is bedoeld om publiek te zijn.
+- Controleer na het publiceren op Lovable in je browser (F12 → Application → Cookies)
+  of Lovable zelf geen cookies of scripts toevoegt. Doet het dat wel, pas dan `privacy.html` aan.
+
 ## Nog te doen
 
 - Domein: overal staat `https://kimbocreates.be` (canonical, sitemap, robots, JSON-LD op de homepage).
   Is het domein anders, zoek-en-vervang dat dan in de hele map.
-- Teksten met `[Kim vult aan …]` en `[KBO-NUMMER]` / `[BTW-NUMMER]` invullen.
+- Teksten met `[Kim vult aan …]`, `[KBO-NUMMER]`, `[BTW-NUMMER]`, `[ADRES VAN DE ONDERNEMING]` en `[DATUM]` invullen (ook in `privacy.html`).
 - Toestemming van de ouders vragen voor de eenhoornmuur met de naam van het kindje,
   of de naam van de foto halen.
 - Na publicatie: sitemap indienen in Google Search Console, Google Bedrijfsprofiel aanmaken
