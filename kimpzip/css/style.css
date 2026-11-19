@@ -141,14 +141,14 @@ h1 em, h2 em, h3 em { font-style: italic; }
 }
 .hoofdmenu a:not(.knop-raam):hover, .hoofdmenu a:not(.knop-raam):focus-visible { color: var(--terracotta); transform: translateY(-2px); }
 .hoofdmenu a:not(.knop-raam):hover::after, .hoofdmenu a:not(.knop-raam):focus-visible::after,
-.hoofdmenu a[aria-current="page"]::after { width: 100%; }
+.hoofdmenu a[aria-current="page"]:not(.knop-raam)::after { width: 100%; }
 .hoofdmenu .knop-raam {
   display: inline-flex; align-items: center; color: #fff; background: var(--raam); padding: 14px 20px; border-radius: 6px;
   box-shadow: 0 0 0 0 var(--goud);
   transition: transform .4s cubic-bezier(.3, 1.6, .5, 1), box-shadow .35s, background .3s;
 }
 .hoofdmenu .knop-raam::after {
-  content: "→"; display: inline-block; overflow: hidden; max-width: 0; opacity: 0; margin-left: 0;
+  content: "→"; content: "→" / ""; /* het pijltje hoort niet bij de naam van de knop */ display: inline-block; overflow: hidden; max-width: 0; opacity: 0; margin-left: 0;
   transition: max-width .35s, opacity .3s, margin-left .35s;
 }
 .hoofdmenu .knop-raam:hover, .hoofdmenu .knop-raam:focus-visible {
@@ -385,6 +385,50 @@ h1 em, h2 em, h3 em { font-style: italic; }
 .voet { margin: 16px 0 0; font-size: 14px; color: #DCE6EE; }
 .voet a { display: inline-block; color: var(--goud-licht); padding: calc((var(--raak) - 1.6em) / 2) 0; }
 .voet-deel { white-space: nowrap; } /* het puntje blijft bij wat erop volgt */
+/* contact.html: daar is de pagina zelf het contactblok, de blauwe band toont alleen de voetregel */
+.contact--voet { padding: 28px 0; }
+.contact--voet .voet { margin: 0; }
+
+/* ---------- Contactpagina: formulier in een boograam ---------- */
+
+.hoofdmenu .knop-raam[aria-current="page"] { background: var(--raam-donker); box-shadow: 0 4px 0 0 var(--goud); }
+.bericht-anders { display: flex; flex-direction: column; gap: 14px; padding-top: 12px; }
+.formulier-kaart {
+  flex: 1 1 380px; min-width: 0; max-width: 540px;
+  border: 2px solid var(--raam); border-radius: 160px 160px 8px 8px;
+  background: var(--kaart); padding: 72px 32px 32px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.formulier-kaart > h2 { font-family: var(--font-serif); font-weight: 400; font-size: 36px; letter-spacing: -0.02em; text-align: center; color: var(--raam); }
+.formulier { display: flex; flex-direction: column; gap: 18px; }
+.formulier[hidden] { display: none; }
+.formulier-kaart.is-verstuurd > h2 { display: none; }
+.formulier-dank-titel:focus { outline: none; } /* krijgt alleen focus vanuit het script, zodat een schermlezer het bedankje voorleest */
+.veld { display: flex; flex-direction: column; gap: 6px; }
+.veld label { font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; line-height: 1.4; }
+.veld-optie { white-space: nowrap; font-family: var(--font-tekst); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--inkt-zacht); }
+.veld input, .veld select, .veld textarea {
+  width: 100%; min-height: 48px; padding: 11px 14px;
+  font: inherit; color: var(--inkt); background: #fff;
+  border: 1.5px solid var(--raam); border-radius: 6px;
+}
+.veld textarea { min-height: 160px; resize: vertical; }
+.veld input:focus, .veld select:focus, .veld textarea:focus { border-color: var(--violet); }
+.formulier .knop { align-self: flex-start; min-height: 48px; border: 0; cursor: pointer; }
+.formulier .knop[aria-disabled="true"] { opacity: .6; cursor: default; }
+/* de tekst links blijft in beeld terwijl je door het lange formulier scrolt */
+@media (min-width: 900px) { .bericht .hero-tekst { position: sticky; top: 32px; } }
+.formulier-status { margin: 0; font-size: 15px; color: var(--inkt-zacht); }
+/* blijft ook leeg in de pagina staan, anders lezen schermlezers de melding niet voor; de marge slikt de lege tussenruimte in */
+.formulier-status:empty { margin-bottom: -18px; }
+.formulier-status.is-fout { color: var(--terracotta-donker); font-weight: 500; }
+.formulier-klein { margin: 0; font-size: 14px; color: var(--inkt-zacht); }
+.formulier-open { margin: 0; padding: 10px 14px; border: 1.5px dashed #5C5345; border-radius: 6px; background: var(--placeholder); color: #5C5345; font-size: 14px; overflow-wrap: anywhere; }
+.formulier-dank { display: flex; flex-direction: column; gap: 12px; text-align: center; }
+.formulier-dank[hidden] { display: none; }
+.formulier-dank p { margin: 0; font-size: 19px; line-height: 1.6; }
+.formulier-dank .formulier-dank-titel { font-family: var(--font-serif); font-weight: 400; font-size: 44px; letter-spacing: -0.02em; line-height: 1; color: var(--violet); }
+.formulier-dank .handtekening { font-family: var(--font-serif); font-style: italic; font-size: 32px; color: var(--raam); }
 
 /* ---------- Kleine schermen ---------- */
 
@@ -404,6 +448,8 @@ h1 em, h2 em, h3 em { font-style: italic; }
   /* de voet staat hier op twee regels: geen los puntje aan het begin of einde van een regel */
   .voet-deel { display: block; }
   .voet-punt { display: none; }
+  .formulier-kaart { padding-left: 24px; padding-right: 24px; }
+  .formulier .knop { align-self: stretch; padding: 16px 12px; letter-spacing: 0.1em; font-size: 12px; text-align: center; }
 }
 
 @media (max-width: 700px) {

@@ -11,9 +11,9 @@ Website for Kim, "een creatieve madam" from Flanders who brings windows, walls a
 
 - Plain HTML + CSS + a little hand-written JavaScript, no build step, no framework, no external libraries. One `.html` file per page.
 - Folder layout:
-  - `index.html` (home), `ramen-en-muren.html`, `schmink.html`, `optredens.html`, `kostuums.html`, `events.html`, `teksten.html`
+  - `index.html` (home), `ramen-en-muren.html`, `schmink.html`, `optredens.html`, `kostuums.html`, `events.html`, `teksten.html`, `contact.html`
   - `css/fonts.css` (local `@font-face`), `css/style.css` (all shared style, variables in `:root`), `css/stapel.css` (the pile of works). Load them in that order on every page.
-  - `assets/js/stapel.js` (every page, `defer`, just before `</body>`), `assets/js/vloei.js` (home only, after `stapel.js`)
+  - `assets/js/stapel.js` (every page, `defer`, just before `</body>`), `assets/js/vloei.js` (home only, after `stapel.js`), `assets/js/contact.js` (contact page only; that page has no pile, so it loads neither `stapel.css` nor `stapel.js`)
   - `assets/fonts/` (woff2), `assets/img/` (Kim's photos), `assets/deco/` (SVG decorations: branches, bee, meadow, trunk, beehive)
 - The home is a one-page of four screens; the six services stay separate pages.
 - The header/menu and the contact band + footer are identical on every page: when you change one, change it on all pages. Only on the home do the logo and Home link to `#top` and Over mij to `#over`, and the contact band sits inside `.slotblok` within `<main>`.
@@ -62,6 +62,7 @@ Fonts (hosted locally in `assets/fonts/`, declared in `css/fonts.css`; never Goo
 - Windows, "ramen" (`.rm` in Mijn creatieve avontuur): a `<button type="button" class="rm" aria-expanded="false">` holding one of three windows: `rm-boog` (blue arch, two casements), `rm-luik` (square, green shutters), `rm-rond` (round, purple). They open on hover (mouse only), Tab focus and tap/click/Enter (`.is-open` and `aria-expanded`, kept in sync by `vloei.js`). No `aria-label`: the button's name comes from its content, `<span class="visueel-verborgen">Open het raam: </span>` followed by what is behind the glass in `.rm-zicht`. A real photo goes in `.rm-zicht` as an `<img>` with a descriptive `alt` (it replaces the placeholder text and becomes part of the button's name).
 - Home layout (`.pagina--home`): 1. pile, 2. Wat ik graag maak (six cards), 3. Mijn creatieve avontuur (three windows), 4. `.slotblok` = Hoi, ik ben Kim + meadow + contact band + footer on one screen. Nothing comes below it.
 - Service page template: kicker + title + intro + buttons on the left, `.verwachten` arch card "Wat kan je verwachten?" with three points on the right, then "Een greep uit mijn werk" as a pile in `galerij` mode, meadow, blue contact band "Zin in iets moois?".
+- Contact page (`contact.html`, "Stuur me een berichtje"): kicker + title + intro + two `.knop-lijn` alternatives (mail, Instagram) on the left, the form in an arch card (`.formulier-kaart`) on the right. Fields are `.veld` (label above the control); the form posts to a form service whose address goes in `action` (placeholder `[FORMULIER-ADRES]`, with a visible `.formulier-open` note until it is set). `contact.js` sends it with `fetch` and swaps the form for `.formulier-dank`; without JavaScript the browser posts it normally. All wording lives in the HTML (`data-bezig`, `data-fout`, `data-open` on the form). Every "Stuur me een berichtje" button on the site links to this page; here the blue band is reduced to the footer line (`.contact--voet`).
 - Kim's real paintings (e.g. the sloth on a branch, `assets/img/luiaard.webp`) can be cut out of their wall background and placed on the page as decoration.
 
 ## Pages (plain names for her registered activities)
@@ -85,7 +86,7 @@ Windows and walls are her main thing; lead with them. Confirm with Viktor before
 
 ## Content rules
 
-- Never invent prices, reviews, testimonials, numbers or client names. Unknown facts become visible placeholders in square brackets: `[EMAIL]`, `[BTW-nummer]`, `[Foto: bruidsraam]`.
+- Never invent prices, reviews, testimonials, numbers or client names. Unknown facts become visible placeholders in square brackets: `[EMAIL]`, `[BTW-nummer]`, `[FORMULIER-ADRES]`, `[Foto: bruidsraam]`.
 - Only use photos that are Kim's own work.
 - Don't draw or reuse protected characters (e.g. Pokémon, Stitch, Winnie the Pooh) in the site's own decorations, even if they appear in her portfolio.
 - Instagram: https://www.instagram.com/kimbo_creates/

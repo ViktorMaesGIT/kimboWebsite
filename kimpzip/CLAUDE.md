@@ -11,7 +11,7 @@ Lees bij elke taak eerst de skill `.claude/skills/kimbo-creates-website/SKILL.md
 - Lettertypes staan lokaal in `assets/fonts/` (via `css/fonts.css`). Nooit Google Fonts of een andere externe bron.
 - Bekijken: open `index.html` in de browser, of gebruik de VS Code-extensie *Live Server*.
 - Alle kleuren en maten staan als variabelen bovenaan `css/style.css`. Pas ze daar aan, niet in de HTML.
-- Elke pagina laadt in deze volgorde: `css/fonts.css`, `css/style.css`, `css/stapel.css`, en vlak voor `</body>` `assets/js/stapel.js` (met `defer`). Alleen de home laadt daarna ook `assets/js/vloei.js`.
+- Elke pagina laadt in deze volgorde: `css/fonts.css`, `css/style.css`, `css/stapel.css`, en vlak voor `</body>` `assets/js/stapel.js` (met `defer`). Alleen de home laadt daarna ook `assets/js/vloei.js`. Uitzondering: `contact.html` heeft geen stapel en laadt alleen `fonts.css`, `style.css` en `assets/js/contact.js`.
 
 ## Structuur
 
@@ -23,10 +23,12 @@ optredens.html
 kostuums.html
 events.html
 teksten.html
+contact.html            "Stuur me een berichtje": formulier
 css/fonts.css           @font-face van de lokale lettertypes
 css/style.css           alle stijl, variabelen bovenaan
 css/stapel.css          stijl van de stapel werkjes
 assets/js/stapel.js     stapel werkjes (home en dienstpagina's)
+assets/js/contact.js    verstuurt het contactformulier zonder de pagina te verlaten
 assets/js/vloei.js      scrollvloei en ramen die opengaan (alleen home)
 assets/fonts/           Instrument Serif, Inter, IBM Plex Mono (woff2)
 assets/img/             foto's van Kim (jpg/webp, max ~1600px breed)
@@ -35,7 +37,8 @@ assets/deco/            getekende SVG's: stam, takken, bijtjes, weide, bijenkorf
 
 ## Regels
 
-- Kop/menu en contactblok + voet zijn op elke pagina identiek. Pas je er één aan, pas ze dan op alle 7 pagina's aan. Enige verschillen op de home: logo en Home linken naar `#top`, Over mij naar `#over`, en het contactblok staat in `.slotblok` binnen `<main>`.
+- Kop/menu en contactblok + voet zijn op elke pagina identiek. Pas je er één aan, pas ze dan op alle 8 pagina's aan. Enige verschillen op de home: logo en Home linken naar `#top`, Over mij naar `#over`, en het contactblok staat in `.slotblok` binnen `<main>`. Op `contact.html` heeft de menuknop `aria-current="page"` en toont de blauwe band alleen de voetregel (`.contact--voet`).
+- Elke knop "Stuur me een berichtje" linkt naar `contact.html`. Teksten van het formulier (ook de meldingen en het bedankje) staan in `contact.html`, niet in `contact.js`.
 - Het actieve menu-item krijgt `aria-current="page"`.
 - De kicker, de h1 en de intro van de home staan als gewone HTML in `.stapel__statisch` in `index.html`; pas die tekst daar aan, niet in `stapel.js`.
 - Nieuwe foto: in `assets/img/`, verkleinen en comprimeren, met een beschrijvende `alt` en `loading="lazy"`. Op een dienstpagina zet je ze op twee plaatsen: in de JSON van de stapel (`"img"` met een beschrijvende `"alt"`) en in het raster in de `<noscript>` (in plaats van `[Foto]` in een `.foto-raam`, met dezelfde `alt`).
@@ -45,7 +48,8 @@ assets/deco/            getekende SVG's: stam, takken, bijtjes, weide, bijenkorf
 
 ## Nog in te vullen (plaatshouders)
 
-- `[EMAIL]` in alle `mailto:`-links
+- `[EMAIL]` op `contact.html` (mailknop)
+- `[FORMULIER-ADRES]` in het `action`-attribuut van het formulier op `contact.html`: het adres van de formulierdienst (bv. Formspree). Haal daarna de regel `.formulier-open` weg.
 - `[BTW-nummer]` in de voet
 - `[Portret van Kim]` op de home
 - `[Foto]`-werkjes in de stapels (home en dienstpagina's) en de drie ramen op de home
