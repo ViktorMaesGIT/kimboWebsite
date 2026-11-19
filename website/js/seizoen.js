@@ -30,8 +30,8 @@
   var s = SEIZOENEN[MAAND[new Date().getMonth()]];
 
   /* het pad naar de site-root afleiden uit de link van de kaart (bv. "ramen/" of "../ramen/") */
-  var root = kaart.getAttribute('href').replace(/ramen\/.*$/, '');
-  kaart.setAttribute('href', root + 'ramen/#' + s.id);
+  var root = kaart.getAttribute('href').replace(/ramen\.html.*$/, '');
+  kaart.setAttribute('href', root + 'ramen.html#' + s.id);
   kaart.setAttribute('aria-label', 'Bekijk mijn ' + s.naam);
 
   kaart.querySelectorAll('img').forEach(function (img) { img.remove(); });

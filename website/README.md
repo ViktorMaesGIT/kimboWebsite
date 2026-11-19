@@ -8,10 +8,10 @@ raamschilderingen, muurschilderingen en belettering, met de hand geschilderd doo
 | Pagina | Bestand |
 |---|---|
 | Home | `index.html` |
-| Ramen (galerij per seizoen + stapel) | `ramen/index.html` |
-| Muren | `muren/index.html` |
-| FAQ | `faq/index.html` |
-| Bedankt (na het offerteformulier) | `bedankt/index.html` |
+| Ramen (galerij per seizoen + stapel) | `ramen.html` |
+| Muren | `muren.html` |
+| FAQ | `faq.html` |
+| Bedankt (na het offerteformulier) | `bedankt.html` |
 
 ## Mappen
 
@@ -27,8 +27,8 @@ raamschilderingen, muurschilderingen en belettering, met de hand geschilderd doo
 
 ## Lokaal bekijken in Visual Studio Code
 
-De pagina's staan in mappen (`ramen/index.html`), dus open ze via een kleine webserver,
-niet door het bestand dubbel te klikken:
+Dubbelklikken op `index.html` werkt, maar met een kleine webserver ververst de pagina
+vanzelf als je iets aanpast:
 
 1. Installeer de extensie **Live Server** (Ritwick Dey).
 2. Open de map `website` in VS Code (File → Open Folder).
