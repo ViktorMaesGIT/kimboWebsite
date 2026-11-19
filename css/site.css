@@ -64,3 +64,46 @@ details[open] .kc-plus{transform:rotate(45deg)}
 @media (prefers-reduced-motion:reduce){.kc-reveal{opacity:1;transform:none;transition:none}}
 
 .kc-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- kop en menu ---------- */
+.kc-kop{max-width:1240px;margin:0 auto;padding:44px 24px 40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.kc-menu{display:flex;flex-wrap:wrap;align-items:center;gap:4px 28px;font-family:'Kimbo Krijt','Kimbo Casual',sans-serif;font-size:23px;letter-spacing:0.03em}
+.kc-menu .kc-nav{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}
+.kc-menuknop{display:none}
+@media (max-width:760px){
+  .kc-kop{padding:20px 20px 12px;gap:12px}
+  .kc-tagline{display:none}
+  .kc-menuknop{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 16px;border:2px solid rgba(189,234,253,0.45);border-radius:12px 6px 14px 8px / 8px 14px 6px 12px;background:transparent;color:#bdeafd;font-family:'Kimbo Krijt',sans-serif;font-size:20px;letter-spacing:0.08em;cursor:pointer}
+  .kc-burger,.kc-burger::before,.kc-burger::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative}
+  .kc-burger::before,.kc-burger::after{content:"";position:absolute;left:0}
+  .kc-burger::before{top:-6px}.kc-burger::after{top:6px}
+  .kc-menu{display:none;flex-basis:100%;flex-direction:column;align-items:stretch;gap:0;padding:8px 0 12px;border-top:2px dashed rgba(189,234,253,0.2)}
+  .kc-menu.open{display:flex}
+  .kc-menu .kc-nav{min-height:52px;padding:0 4px;border-bottom:1px solid rgba(189,234,253,0.12)}
+  .kc-menu .kc-btn{margin-top:14px;text-align:center}
+}
+
+/* ---------- tikdoelen van minstens 44px ---------- */
+.kc-tik{display:inline-flex;align-items:center;min-height:44px}
+.kc-voetmenu a,#contact ul a{display:inline-flex;align-items:center;min-height:44px}
+
+/* ---------- hero ---------- */
+@media (max-width:760px){
+  #hero-titel{font-size:clamp(21px,7.2vw,46px)}
+  .kc-hert{display:none}
+  .kc-hero{padding-top:calc(var(--boom)*0.33);padding-bottom:64px}
+}
+/* lage, brede schermen (bv. laptop 1366×768/900): hero compacter zodat de knop in beeld komt */
+@media (min-width:761px) and (max-height:960px){
+  .kc-bos{--boom:clamp(560px,min(70vw,76vh),1040px)}
+  #hero-titel{font-size:clamp(22px,min(6vw,7vh),82px)}
+  .kc-intro{font-size:18px!important}
+}
+
+/* ---------- leesbaarheid: langere lopende tekst in Inter ---------- */
+main p:not(.kk):not(.kc-sr):not(.kc-tekst),main li:not(:has(h3)),main details p{font-family:Inter,system-ui,sans-serif;letter-spacing:0;text-shadow:none;font-size:17px;line-height:1.6}
+main figcaption span:last-child{font-family:Inter,system-ui,sans-serif;letter-spacing:0}
+main .kc-intro{font-family:Inter,system-ui,sans-serif;letter-spacing:0;text-shadow:none;line-height:1.6}
+
+/* ---------- formulier ---------- */
+input::placeholder,textarea::placeholder{color:#a9b4c2;opacity:1}

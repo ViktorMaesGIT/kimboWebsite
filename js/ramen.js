@@ -4,7 +4,10 @@
 (function () {
   var data = JSON.parse(document.getElementById('ramen-data').textContent);
   var stapelEl = document.getElementById('stapel');
-  if (stapelEl && window.KcStapel) window.KcStapel(stapelEl, data.stapel, { hoogte: 640 });
+  /* op kleine schermen worden de kaartjes te klein om te lezen: daar enkel de galerij */
+  var klein = window.matchMedia('(max-width: 699px)').matches;
+  if (stapelEl && window.KcStapel && !klein) window.KcStapel(stapelEl, data.stapel, { hoogte: 640 });
+  if (klein) { var tip = document.querySelector('[data-stapeltip]'); if (tip) tip.textContent = 'Kies hieronder een seizoen.'; }
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ease = 'cubic-bezier(0.16, 1, 0.3, 1)';

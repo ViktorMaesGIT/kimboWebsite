@@ -48,7 +48,8 @@
   var i = 0;
   function toon() {
     imgs.forEach(function (img, k) { img.style.opacity = k === i ? '1' : '0'; });
-    label.textContent = s.label + ' · ' + s.fotos[i].plaats;
+    var kort = window.matchMedia('(max-width: 600px)').matches;
+    label.textContent = (kort ? s.label.replace('nu in het seizoen: ', '') : s.label) + ' · ' + s.fotos[i].plaats.replace('restaurant de ', '');
   }
   toon();
   if (imgs.length > 1) setInterval(function () { i = (i + 1) % imgs.length; toon(); }, 5000);

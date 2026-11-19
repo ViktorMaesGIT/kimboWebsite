@@ -20,12 +20,13 @@
 <body>
 <div class="kc-bord kk">
 
-<header id="top" style="max-width: 1240px; margin: 0 auto; padding: 44px 24px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px">
-  <a href="index.html" class="kc-nav" style="display: flex; flex-direction: column; line-height: 1">
-    <img src="assets/img/kimbo-creates-logo.svg" alt="Kimbo Creates" width="720" height="140" style="display: block; height: clamp(52px, 10vw, 76px); width: auto">
-    <span class="kk" style="font-family: 'Kimbo Krijt', cursive; font-size: 22px; letter-spacing: 0.06em; color: #bdeafd; margin-top: 8px; padding-left: 6px">ramen · muren</span>
+<header id="top" class="kc-kop">
+  <a href="index.html" class="kc-nav kc-logo" style="display: flex; flex-direction: column; line-height: 1">
+    <img src="assets/img/kimbo-creates-logo.svg" alt="Kimbo Creates" width="720" height="140" style="display: block; height: clamp(44px, 10vw, 76px); width: auto">
+    <span class="kk kc-tagline" style="font-family: 'Kimbo Krijt', cursive; font-size: 22px; letter-spacing: 0.06em; color: #bdeafd; margin-top: 8px; padding-left: 6px">ramen · muren</span>
   </a>
-  <nav class="kk" aria-label="Hoofdmenu" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 36px; font-family: 'Kimbo Krijt', 'Kimbo Casual', sans-serif; font-size: 23px; letter-spacing: 0.03em">
+  <button type="button" class="kc-menuknop kk" aria-expanded="false" aria-controls="hoofdmenu"><span aria-hidden="true" class="kc-burger"></span>MENU</button>
+  <nav id="hoofdmenu" class="kk kc-menu" aria-label="Hoofdmenu">
     <a href="ramen.html" class="kc-nav" aria-current="page" style="color: #b49cff; text-decoration: underline; text-decoration-style: wavy; text-underline-offset: 7px">RAMEN</a>
     <a href="muren.html" class="kc-nav">MUREN</a>
     <a href="index.html#kim" class="kc-nav">OVER KIM</a>
@@ -39,7 +40,7 @@
   <p class="kk" style="margin: 0; font-family: 'Kimbo Krijt', 'Kimbo Casual', sans-serif; font-size: 23px; line-height: 1.1; letter-spacing: 0.1em; color: #4fd3f0">mijn werk, per seizoen</p>
   <h1 id="ramen-titel" style="margin: 14px 0 0; font-family: 'Kimbo Poster', 'Kimbo Krijt', sans-serif; font-weight: 400; line-height: 1; color: #ffffff">RAAMSCHILDERINGEN</h1>
   <p style="max-width: 680px; margin: 18px auto 0; font-size: 20px">Een greep uit de ramen die ik met de hand schilderde: halloween in Wetteren en Merchtem, kerst bij restaurant de Paardenkouter, lente in Mechelen, een trouwraam in Lokeren en nog veel meer.</p>
-  <p style="margin: 22px auto 0; font-size: 17px; opacity: 0.85">Gooi ze rond, of kies hieronder een seizoen.</p>
+  <p class="kk" data-stapeltip style="margin: 22px auto 0; font-size: 18px; opacity: 0.9">Gooi ze rond, of kies hieronder een seizoen.</p>
 </section>
 
 <div id="stapel" data-no-reveal></div>
@@ -214,7 +215,7 @@
       <img src="assets/img/kimbo-creates-logo.svg" alt="Kimbo Creates" width="720" height="140" loading="lazy" style="display: block; height: 52px; width: auto">
       <p style="margin: 0; font-size: 16px; color: #bdeafd">Raamschilderingen en muurschilderingen, met de hand geschilderd.</p>
     </div>
-    <nav class="kk" aria-label="Voettekst" style="display: flex; flex-wrap: wrap; gap: 10px 26px; font-family: 'Kimbo Krijt', 'Kimbo Casual', sans-serif; font-size: 17px; letter-spacing: 0.03em">
+    <nav class="kk kc-voetmenu" aria-label="Voettekst" style="display: flex; flex-wrap: wrap; gap: 0 26px; font-family: 'Kimbo Krijt', 'Kimbo Casual', sans-serif; font-size: 17px; letter-spacing: 0.03em">
       <a href="ramen.html" class="kc-nav">RAMEN</a>
       <a href="muren.html" class="kc-nav">MUREN</a>
       <a href="faq.html" class="kc-nav">FAQ</a>
@@ -228,6 +229,7 @@
 </footer>
 
 </div>
+<script src="js/menu.js" defer></script>
 <script src="js/reveal.js" defer></script>
 <script src="js/stapel.js" defer></script>
 <script src="js/ramen.js" defer></script>
