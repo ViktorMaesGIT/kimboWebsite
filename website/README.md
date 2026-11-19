@@ -36,11 +36,23 @@ vanzelf als je iets aanpast:
 
 Of in een terminal in deze map: `python -m http.server 8000` en surf naar http://localhost:8000.
 
-## Online zetten (Netlify)
+## Online zetten (Lovable)
 
-- Koppel de repo aan Netlify en zet **Base directory** op `website` (publish-map staat in `netlify.toml`).
-- Het offerteformulier gebruikt **Netlify Forms**: aanvragen verschijnen in Netlify onder *Forms*.
-  Zet daar een e-mailmelding naar Kims mailadres aan.
+1. Pak de map `website` in als ZIP (of koppel de repo via GitHub) en importeer hem in Lovable
+   via Free Import. Vraag Lovable de bestanden als **statische HTML** te laten staan en ze niet
+   om te bouwen naar React.
+2. Publiceer. Op een betaald plan (ook Lite) kun je daarna je eigen domein koppelen
+   via Project → Settings → Domains.
+
+`netlify.toml` wordt door Lovable genegeerd; die is er voor als je ooit naar Netlify gaat.
+
+## Offerteformulier
+
+Het formulier gebruikt **Web3Forms** (gratis, werkt op elke host):
+
+1. Ga naar https://web3forms.com en vraag een access key aan met Kims e-mailadres.
+2. Vervang in `index.html` de tekst `WEB3FORMS-ACCESS-KEY` door die sleutel.
+3. Na het versturen gaat de bezoeker naar `bedankt.html` (adres staat in het verborgen veld `redirect`).
 
 ## Nog te doen
 
